@@ -1,0 +1,12 @@
+1. ler 2 vetores com 5 elementos - input
+2. Verificar se os dois vetores contem os mesmos elementos - output 
+
+
+v1 = 0 0 2 3 4
+
+v2 = 2 4 2 0 3  
+
+check1 = 0
+check2 = 5
+
+0
