@@ -1,10 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-//Ordenação utilizando bubblesort 
 
 int main(){
-	int n, aux, cont;
+	int n, aux, cont, k;
 	
 	printf("Digite o valor de n:\n");
 	scanf("%d", &n);
@@ -15,8 +14,25 @@ int main(){
 		printf("Digite o %do numero:\n", i+1);
 		scanf("%d", &num[i]);
 	}
+	k = n-1;
 	
-	printf("Numeros do vetor:");
+	for(int i=0;i<n/2;i++){
+		aux = num[i];
+		num[i] = num[k];
+		num[k] = aux;
+		k--;
+	}
+	
+
+	printf("\nOrganizar o vetor ao contrario:");
+	for(int i=0;i<n;i++){
+		printf("%2d", num[i]);
+	}
+	
+	getch();
+}
+
+/*	printf("Numeros do vetor:");
 	for(int i=0;i<n;i++){
 		printf("%2d", num[i]);
 	}
@@ -28,11 +44,4 @@ int main(){
 				num[i+1] = aux;
 			}
 		}
-	}
-	printf("\nNumeros do vetor ordenados:");
-	for(int i=0;i<n;i++){
-		printf("%2d", num[i]);
-	}
-	
-	getch();
-}
+	}*/
