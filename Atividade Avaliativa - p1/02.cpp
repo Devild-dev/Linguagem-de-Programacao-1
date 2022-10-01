@@ -23,7 +23,7 @@ int main(){
 	
 	fatorialNum = fatorialCalc(num);	
 	
-	printf("Fatorial do numero %d! eh %d.", num, fatorialNum);
+	printf("O fatorial do numero %d! eh %d", num, fatorialNum);
 		
 	getch();
 }

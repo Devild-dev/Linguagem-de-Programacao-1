@@ -2,11 +2,12 @@
 #include<stdlib.h>
 #include<conio.h>
 
-void numeroPerfeito(int num);
+int numeroPerfeito(int num);
 
 int main(){
-	int num;
+	int num, check;
 	num = 0;
+	check = 0;
 	
 	printf("Digite um numero:\n");
 	scanf("%d", &num);
@@ -21,12 +22,14 @@ int main(){
 	scanf("%d", &num);			
 	}	
 	
-	numeroPerfeito(num);		
+	check = numeroPerfeito(num);
+	
+	check == 0 ? printf("O numero %d eh perfeito!", num) : printf("O numero %d nao eh perfeito!", num);		
 	
 	getch();
 }
 
-void numeroPerfeito(int num){
+int numeroPerfeito(int num){
 	int cont, check;
 	check = 0;
 	cont = num;		
@@ -36,9 +39,10 @@ void numeroPerfeito(int num){
 		  	check += cont;
 	}		
 	if(check == num){
-		printf("O numero %d eh perfeito!", num);
+		return 0;
 	}else{
-		printf("O numero %d nao eh perfeito!", num);
-	}	
+		return 1;	
+	} 
 }
+
 

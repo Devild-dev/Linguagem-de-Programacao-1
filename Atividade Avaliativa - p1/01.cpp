@@ -6,22 +6,18 @@
 float mediaPonderada(float num[]);
 
 int main(){
-	float num[TAM], mediaP = 0.0; //var;
+	float num[TAM], mediaP = 0.0; 	
 	int i=0;	
-	for(int i=0;i<TAM;i++){
-		printf("Digite o %do valor: ", i+1);
-		scanf("%f", &num[i]);	
-	}
 		
-	/*while(i < TAM){	
-		printf("Digite a %do nota:\n", i+1);
+	while(i < TAM){	
+		printf("Digite o %do valor:\n", i+1);
 		scanf("%f", &num[i]);		
-		if(num[i]>0.0 && num[i]<=10.0){
+		if(num[i]>=0.0 && num[i]<=10.0){
 			i++;
 		}else{
-			printf("***Valor invalido, Insira uma nota entre 0 e 10!***\n\n");
+			printf("***Valor invalido, Insira um valor entre 0 e 10!***\n\n");
 		}		
-	}*/
+	}
 	
 	mediaP = mediaPonderada(num);	
 	printf("A media ponderada eh %.2f", mediaP);	

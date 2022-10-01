@@ -24,14 +24,14 @@ int main(){
 	h = contaNotas(g.resto, 2);
 	i = contaNotas(h.resto, 1);
 	
-	printf("Total de notas de 100 reais: %d \n", c.cont);
-	printf("Total de notas de 50 reais: %d \n", d.cont);
-	printf("Total de notas de 20 reais: %d \n", e.cont);
-	printf("Total de notas de 10 reais: %d \n", f.cont);
-	printf("Total de notas de 5 reais: %d \n", g.cont);
-	printf("Total de notas de 2 reais: %d \n", h.cont);
-	printf("Total de notas de 1 real: %d \n", i.cont);
-	
+	(c.cont > 0) ? printf("Total de notas de 100 reais: %d \n", c.cont) : printf("");
+	(d.cont > 0) ? printf("Total de notas de 50 reais: %d \n", d.cont) : printf("");
+	(e.cont > 0) ? printf("Total de notas de 20 reais: %d \n", e.cont) : printf("");
+	(f.cont > 0) ? printf("Total de notas de 10 reais: %d \n", f.cont) : printf("");
+	(g.cont > 0) ? printf("Total de notas de 5 reais: %d \n", g.cont) : printf("");
+	(h.cont > 0) ? printf("Total de notas de 2 reais: %d \n", h.cont) : printf("");
+	(i.cont > 0) ? printf("Total de notas de 1 real: %d \n", i.cont) : printf("");
+
 	getch();
 }
 
