@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
-#define TAM 2
+#define TAM 3
 
 struct tipoMercadoria{
 	char nomeMercadoria[20];
@@ -10,6 +10,9 @@ struct tipoMercadoria{
 	float lucro;
 	float porcentagem;
 };
+
+float lucroMerc(tipoMercadoria m);
+float porcentagemMerc(tipoMercadoria m);
 
 int main(){
 	tipoMercadoria mercadorias[TAM];
@@ -23,28 +26,36 @@ int main(){
 		scanf("%f", &mercadorias[i].valorCompra);
 		printf("Informe o valor de venda da mercadoria: \n");
 		scanf("%f", &mercadorias[i].valorVenda);
-		mercadorias[i].lucro = mercadorias[i].valorVenda-mercadorias[i].valorCompra;
+			
+		mercadorias[i].lucro = lucroMerc(mercadorias[i]);	
+		mercadorias[i].porcentagem = porcentagemMerc(mercadorias[i]);
 	}
 	
 	for(int i=0;i<TAM;i++){
-		mercadorias[i].porcentagem = ((mercadorias[i].lucro)/mercadorias[i].valorCompra);
 		if(mercadorias[i].porcentagem < 0.20){
-			printf("Menor que 20%%\n");
 			contA++;
 		}else{
 			if(mercadorias[i].porcentagem >= 0.20 && mercadorias[i].porcentagem <= 0.30){
-				printf("Maior que 20%% e Menor que 30%%\n");
 				contB++;
 			}else{
-				printf("Maior que 30%%\n");
 				contC++;
 			}
 		}
 	}
 
-	printf("%d mercadorias proporcionam lucro abaixo de 20%%\n", contA);
-	printf("%d mercadorias proporcionam lucro entre 20%% e 30%%\n", contB);
-	printf("%d mercadorias proporcionam lucro acima de 30%\n", contC);
+	contA > 0 ? printf("%d mercadoria(s) proporcionam lucro abaixo de 20%%\n", contA) : printf("");
+	contB > 0 ? printf("%d mercadorias proporcionam lucro entre 20%% e 30%%\n", contB) : printf("");
+	contC > 0 ? printf("%d mercadorias proporcionam lucro acima de 30%\n", contC) : printf("");
 
 	getch();
+}
+
+float lucroMerc(tipoMercadoria m){
+	m.lucro = m.valorVenda-m.valorCompra;	
+	return m.lucro;
+}
+
+float porcentagemMerc(tipoMercadoria m){	
+	m.porcentagem = ((m.lucro)/m.valorCompra);
+	return m.porcentagem;
 }
