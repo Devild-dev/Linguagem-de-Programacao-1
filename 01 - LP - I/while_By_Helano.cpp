@@ -33,6 +33,7 @@ int main() {
     }
     printf("Proxima nota \n");
     scanf("%f", &nota);
+    
   }
 
   if (cont > 0)

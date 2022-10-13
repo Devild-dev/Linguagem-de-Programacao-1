@@ -57,29 +57,14 @@ int main(){
 					}
 				}	
 			}
-			
-			
-		
 		}
-	
-	
-	
-	
-	
-
+		
     for(int i = 0;i<num;i++){
 		for(int j=0; j<num;j++){
 			printf(" %d",mat[i][j]);	
 		}
 		printf("\n");
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	getch();
 }

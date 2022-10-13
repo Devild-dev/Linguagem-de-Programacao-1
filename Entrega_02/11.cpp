@@ -4,7 +4,6 @@
 #include<time.h>
 #define TAM 5
 
-
 int main(){
 	int v[TAM];// cria vetor com 5 posições
 	int num, meio, cont, l, c, i,random; // declaração das variáveis necessárias
@@ -14,16 +13,19 @@ int main(){
 	printf("Digite um valor impar:\n");//entrada dos números ímpares
 	scanf("%d", &v[i]);
 	
-	while(i<TAM-1){//controle de entrada de dados, para inserir apenas números ímpares
-		if(v[i]%2 !=0){
+	while(i<TAM){//controle de entrada de dados, para inserir apenas números ímpares
+			if(v[i]%2 !=0){
 			i++;	
 		}else{
-			printf("Numero par!\nDigite um numero impar.\n");
-			getch();
+			printf("Valor inserido eh par, Por favor digite um numero impar.\n");
+		}
+		if(i==TAM){
+			break;
 		}
 		printf("Digite outro valor impar:\n");
-		scanf("%d", &v[i]);
+		scanf("%d", &v[i]);	
 	}
+
 	
 	srand(time(NULL));//função para evitar a repetição do número aleatório
 	random = ((rand()%50)/10);//número aleatório que vai ser inserido no vetor para escolher uma das entradas

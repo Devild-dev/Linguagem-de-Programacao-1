@@ -13,15 +13,17 @@ int main(){
 	printf("Digite um valor impar:\n");//entrada dos números ímpares
 	scanf("%d", &v[i]);
 	
-	while(i<TAM-1){//controle de entrada de dados, para inserir apenas números ímpares
+	while(i<TAM){//controle de entrada de dados, para inserir apenas números ímpares
 		if(v[i]%2 !=0){
 			i++;	
 		}else{
-			printf("Numero par!\nDigite um numero impar.\n");
-			getch();
+			printf("Valor inserido eh par, Por favor digite um numero impar.\n\n");
+		}
+		if(i==TAM){
+			break;
 		}
 		printf("Digite outro valor impar:\n");
-		scanf("%d", &v[i]);
+		scanf("%d", &v[i]);	
 	}
 	
 	srand(time(NULL));//função para evitar a repetição do número aleatório
@@ -44,11 +46,11 @@ int main(){
 				c = meio;
 				mat[l][c] = cont;
 			}else{
-				if(l<0 && c>=0){// regra 2 - se a linha for = -1 = a linha recebe o valor máximo
+				if(l<0 && c>=0){// regra 2 - se a linha for igual -1, a linha recebe o valor máximo
 					l = max;
 					mat[l][c] = cont;
 					}else{
-						if(c<0 && l>=0){// regra 3 - se a coluna for = -1 a coluna recebe o valor máximo
+						if(c<0 && l>=0){// regra 3 - se a coluna for igual -1, a coluna recebe o valor máximo
 							c = max;
 							mat[l][c] = cont;	
 						}else{
@@ -75,7 +77,7 @@ int main(){
 	
     for(int i = 0;i<num;i++){//laço para mostrar o quadrado perfeito
 		for(int j=0; j<num;j++){
-			printf("|%.2d|",mat[i][j]);	
+			printf("|%.4d|",mat[i][j]);	
 		}
 		printf("\n");
 	}			
