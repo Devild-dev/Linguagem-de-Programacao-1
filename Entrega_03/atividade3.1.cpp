@@ -66,7 +66,3 @@ int main(){
 	}
 	getch();
 }
-
-/*for(int i=0;i<Q;i++){
-		printf("%c\n", gabarito[i]);	
-	}*/
