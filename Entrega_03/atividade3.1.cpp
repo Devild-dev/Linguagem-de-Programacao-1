@@ -55,9 +55,6 @@ int main(){
 	printf("A quantidade de alunos aprovados: %.0f\n", aprovados);
 	printf("Porcentagem de aprovados: %.0f%%\n", porcentagem);
 	printf("O total de alunos eh: %.0d\n", total);
-	
-	
-	
 	printf("A nota de maior frequencia eh: %d", maior);
 	getch();
 }
