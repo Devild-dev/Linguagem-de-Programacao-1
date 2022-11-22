@@ -68,35 +68,8 @@ void listaDupla(Nodo *inicio){
         printCliente(atual);
 }
 
-int consultarCliente(Nodo**inicio, int c){
-	Nodo *atual;
-	if(*inicio == NULL) return 0;
-		atual = *inicio;
-	while(atual != NULL){
-		if(atual->client.idC == c){
-			printCliente(atual);
-		}
-		atual = atual->prox;
-	}		
-	return 1;		
-}
-
-int alterarCliente(Nodo**inicio, int c, Cliente novo){
-	Nodo *atual;
-	if(*inicio == NULL) return 0;
-		atual = *inicio;
-	while(atual != NULL){
-		if(atual->client.idC == c){
-			strcpy(atual->client.nome,novo.nome);
-			strcpy(atual->client.cpf,novo.cpf);
-			strcpy(atual->client.plano,novo.plano);
-		}
-		atual = atual->prox;
-	}		
-	return 1;		
-}
 //b = 0 - consultar | b = 1 - alterar
-int consultaOuAltera(Nodo**inicio, int c, Cliente novo, int b){
+int consultaCliente(Nodo**inicio, int c, Cliente novo, int b){
 	Nodo *atual;
 	if(*inicio == NULL) return 0;
 		atual = *inicio;
@@ -154,8 +127,7 @@ int main(){
 				system("cls");
 				printf("Digite o ID do cliente desejado:\n");
 				scanf("%d", &num);
-				//consultarCliente(&inicio,num);
-				check = consultaOuAltera(&inicio, num, cli, 0);
+				check = consultaCliente(&inicio, num, cli, 0);
 				if(check != -1){
 					printf("ID nao encontrado!");
 				}
@@ -164,9 +136,7 @@ int main(){
 				system("cls");
 				printf("Digite o ID do cliente desejado:\n");
 				scanf("%d", &num);
-				
-				//alterarCliente(&inicio,num, cli);
-				check = consultaOuAltera(&inicio, num, cli, 1);
+				check = consultaCliente(&inicio, num, cli, 1);
 				if(check != -1){
 					printf("ID nao encontrado!");
 				}else{
@@ -179,7 +149,7 @@ int main(){
 					printf("Digite a alteracao do plano do cliente:\n");
 					setbuf(stdin,NULL);
 					gets(cli.plano);
-					consultaOuAltera(&inicio, num, cli, 1);
+					consultaCliente(&inicio, num, cli, 1);
 				}
 				break;
 			case 4:
