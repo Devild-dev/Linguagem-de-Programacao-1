@@ -6,7 +6,7 @@
 typedef struct cliente{
 	int idC;
 	char nome[50];
-	char cpf[15];
+	char cpf[12];
 	char plano[10];
 }Cliente;
 
@@ -58,23 +58,45 @@ void printCliente(Nodo *atual){
 	printf("------------------------------\n");	
 }
 
-int listaDupla(Nodo *inicio){
+void listaDupla(Nodo *inicio){
     Nodo *atual;
     atual = inicio;
-    if(atual != NULL){
-    	while(atual->prox != NULL){
+   while(atual->prox != NULL){
 		printCliente(atual);
 		atual = atual->prox;
         }
         printCliente(atual);
-	}else{
-		printf("Clientes nao cadastrados!");
-	}
-    return 1;
 }
 
+int consultarCliente(Nodo**inicio, int c){
+	Nodo *atual;
+	if(*inicio == NULL) return 0;
+		atual = *inicio;
+	while(atual != NULL){
+		if(atual->client.idC == c){
+			printCliente(atual);
+		}
+		atual = atual->prox;
+	}		
+	return 1;		
+}
+
+int alterarCliente(Nodo**inicio, int c, Cliente novo){
+	Nodo *atual;
+	if(*inicio == NULL) return 0;
+		atual = *inicio;
+	while(atual != NULL){
+		if(atual->client.idC == c){
+			strcpy(atual->client.nome,novo.nome);
+			strcpy(atual->client.cpf,novo.cpf);
+			strcpy(atual->client.plano,novo.plano);
+		}
+		atual = atual->prox;
+	}		
+	return 1;		
+}
 //b = 0 - consultar | b = 1 - alterar
-int consultaCliente(Nodo**inicio, int c, Cliente novo, int b){
+int consultaOuAltera(Nodo**inicio, int c, Cliente novo, int b){
 	Nodo *atual;
 	if(*inicio == NULL) return 0;
 		atual = *inicio;
@@ -94,35 +116,6 @@ int consultaCliente(Nodo**inicio, int c, Cliente novo, int b){
 	return 1;		
 }
 
-
-void gravaArquivo(Nodo *inicio){
-    Nodo *atual;
-    FILE *arq;
-    arq = fopen("file.txt", "w");
-    atual = inicio;
-   while(atual->prox != NULL){
-		fprintf(arq, "%d", atual->client.idC);
-		fputs("\n",arq);
-		fputs(atual->client.nome,arq);
-		fputs("\n", arq);
-		fputs(atual->client.cpf,arq);
-		fputs("\n", arq);
-		fputs(atual->client.plano,arq);
-		fputs("\n", arq);
-		atual = atual->prox;
-        }
-        fprintf(arq, "%d", atual->client.idC);
-		fputs("\n",arq);
-        fputs(atual->client.nome,arq);
-		fputs("\n", arq);
-		fputs(atual->client.cpf,arq);
-		fputs("\n", arq);
-		fputs(atual->client.plano,arq);
-		fputs("\n", arq);
-		fputs("-1", arq);
-        fclose(arq);
-}
-
 int main(){
 		int cont, opc, num, check;
 		Cliente cli;
@@ -133,14 +126,12 @@ int main(){
 
 	do{
 		system("cls");
-		printf("CADASTRO DE CLIENTES - PROVEDOR LPNET\n");
+		printf("CADASTRO DE CLIENTES - PROVEDOR SUPERNET\n");
 		printf("1 Inserir Clientes: \n");
 		printf("2 Consultar Cliente: \n");
 		printf("3 Alterar Dados: \n");
 		printf("4 Mostrar Clientes: \n");
-		printf("5 Gravar em arquivo: \n");
-		printf("6 Recuperar em arquivo: \n");
-		printf("7 Sair: \n");
+		printf("5 Sair: \n");
 		printf("\n");
 		scanf("%d", &opc);
 
@@ -163,7 +154,8 @@ int main(){
 				system("cls");
 				printf("Digite o ID do cliente desejado:\n");
 				scanf("%d", &num);
-				check = consultaCliente(&inicio, num, cli, 0);
+				//consultarCliente(&inicio,num);
+				check = consultaOuAltera(&inicio, num, cli, 0);
 				if(check != -1){
 					printf("ID nao encontrado!");
 				}
@@ -172,7 +164,9 @@ int main(){
 				system("cls");
 				printf("Digite o ID do cliente desejado:\n");
 				scanf("%d", &num);
-				check = consultaCliente(&inicio, num, cli, 1);
+				
+				//alterarCliente(&inicio,num, cli);
+				check = consultaOuAltera(&inicio, num, cli, 1);
 				if(check != -1){
 					printf("ID nao encontrado!");
 				}else{
@@ -185,7 +179,7 @@ int main(){
 					printf("Digite a alteracao do plano do cliente:\n");
 					setbuf(stdin,NULL);
 					gets(cli.plano);
-					consultaCliente(&inicio, num, cli, 1);
+					consultaOuAltera(&inicio, num, cli, 1);
 				}
 				break;
 			case 4:
@@ -194,37 +188,11 @@ int main(){
 				break;
 			case 5:
 				system("cls");
-				gravaArquivo(inicio);
-				break;
-			case 6:
-				system("cls");
-				Nodo *atual;
-    			FILE *arq;
-    			arq = fopen("file.txt", "r");
-   				atual = inicio;
-   				while(cli.idC != -1){
-					fscanf(arq, "%d", &cli.idC);
-					printf("%d\n", cli.idC);
-					if(cli.idC == -1){
-   						break;
-					   }
-					fscanf(arq, " %s", cli.nome);
-					printf("%s\n", cli.nome);
-					fscanf(arq, " %s", cli.cpf);
-					printf("%s\n", cli.cpf);
-					fscanf(arq, " %s", cli.plano);
-					printf("%s\n", cli.plano);
-					inserirDuplamenteEncadeado(&inicio, cli);
-        		}    
-        		fclose(arq);
-				break;
-			case 7:
-				system("cls");
 				break;
 			default:
 				printf("Entrada Invalida!!!\n\n");
 		}getch();
-	}while(opc!=7);
+	}while(opc!=5);
 		printf("Saindo do programa de cadastro de clientes!");
 	getch();
 }

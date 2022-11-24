@@ -6,7 +6,7 @@
 typedef struct cliente{
 	int idC;
 	char nome[50];
-	char cpf[15];
+	char cpf[12];
 	char plano[10];
 }Cliente;
 
@@ -58,19 +58,14 @@ void printCliente(Nodo *atual){
 	printf("------------------------------\n");	
 }
 
-int listaDupla(Nodo *inicio){
+void listaDupla(Nodo *inicio){
     Nodo *atual;
     atual = inicio;
-    if(atual != NULL){
-    	while(atual->prox != NULL){
+   while(atual->prox != NULL){
 		printCliente(atual);
 		atual = atual->prox;
         }
         printCliente(atual);
-	}else{
-		printf("Clientes nao cadastrados!");
-	}
-    return 1;
 }
 
 //b = 0 - consultar | b = 1 - alterar
@@ -119,7 +114,29 @@ void gravaArquivo(Nodo *inicio){
 		fputs("\n", arq);
 		fputs(atual->client.plano,arq);
 		fputs("\n", arq);
-		fputs("-1", arq);
+		//atual = atual->prox;
+        fclose(arq);
+}
+
+void recuperaArquivo(Nodo *inicio){
+    Nodo *atual;
+    Cliente cli;
+    FILE *arq;
+    arq = fopen("file.txt", "r");
+    atual = inicio;
+   while(atual->prox != NULL){
+		fscanf(arq, "%d", atual->client.idC);
+		fscanf(arq, "%s", atual->client.nome);
+		fscanf(arq, "%s", atual->client.cpf);
+		fscanf(arq, "%s", atual->client.plano);
+		inserirDuplamenteEncadeado(&atual, cli);
+		atual = atual->prox;
+        }
+        fscanf(arq, "%d", atual->client.idC);
+		fscanf(arq, "%s", atual->client.nome);
+		fscanf(arq, "%s", atual->client.cpf);
+		fscanf(arq, "%s", atual->client.plano);
+		inserirDuplamenteEncadeado(&atual, cli);      
         fclose(arq);
 }
 
@@ -196,30 +213,9 @@ int main(){
 				system("cls");
 				gravaArquivo(inicio);
 				break;
-			case 6:
-				system("cls");
-				Nodo *atual;
-    			FILE *arq;
-    			arq = fopen("file.txt", "r");
-   				atual = inicio;
-   				while(cli.idC != -1){
-					fscanf(arq, "%d", &cli.idC);
-					printf("%d\n", cli.idC);
-					if(cli.idC == -1){
-   						break;
-					   }
-					fscanf(arq, " %s", cli.nome);
-					printf("%s\n", cli.nome);
-					fscanf(arq, " %s", cli.cpf);
-					printf("%s\n", cli.cpf);
-					fscanf(arq, " %s", cli.plano);
-					printf("%s\n", cli.plano);
-					inserirDuplamenteEncadeado(&inicio, cli);
-        		}    
-        		fclose(arq);
-				break;
 			case 7:
 				system("cls");
+				recuperaArquivo(inicio);
 				break;
 			default:
 				printf("Entrada Invalida!!!\n\n");
