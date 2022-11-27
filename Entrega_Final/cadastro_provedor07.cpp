@@ -3,18 +3,20 @@
 #include<conio.h>
 #include<string.h>
 
+
+//estrutura cliente 
 typedef struct cliente{
 	int idC;
 	char nome[50];
 	char cpf[15];
 	char plano[10];
 }Cliente;
-
+//estrutura nodo para criar lista dinâmica
 typedef struct nodo{
 	Cliente client;
 	struct nodo *anterior, *prox;
 }Nodo;
-
+//insere cliente como uma lista duplamente encadeada
 void inserirDuplamenteEncadeado(Nodo**inicio, Cliente c){
 	Nodo *novo, *atual;
 	novo = (Nodo*)malloc(sizeof(Nodo));
@@ -48,7 +50,7 @@ void inserirDuplamenteEncadeado(Nodo**inicio, Cliente c){
 			atual->anterior = novo;
 		}  
 }
-
+//função para entrada dos dados dos clientes
 void printCliente(Nodo *atual){
 	printf("------------------------------\n");
 	printf("ID: %d \n", atual->client.idC);
@@ -57,7 +59,7 @@ void printCliente(Nodo *atual){
 	printf("Plano: %s \n", atual->client.plano);
 	printf("------------------------------\n");	
 }
-
+//função para mostrar os clientes cadastrados
 int listaDupla(Nodo *inicio){
     Nodo *atual;
     atual = inicio;
@@ -72,7 +74,7 @@ int listaDupla(Nodo *inicio){
 	}
     return 1;
 }
-
+//função para consultar ou alterar cliente
 //b = 0 - consultar | b = 1 - alterar
 int consultaCliente(Nodo**inicio, int c, Cliente novo, int b){
 	Nodo *atual;
@@ -93,14 +95,14 @@ int consultaCliente(Nodo**inicio, int c, Cliente novo, int b){
 	}		
 	return 1;		
 }
-
-
-void gravaArquivo(Nodo *inicio){
+//função para gravar em arquivo os clientes cadastrados
+int gravaArquivo(Nodo *inicio){
     Nodo *atual;
-    FILE *arq;
-    arq = fopen("file.txt", "w");
     atual = inicio;
-   while(atual->prox != NULL){
+    if(atual != NULL){
+    	FILE *arq;
+    	arq = fopen("file.txt", "w");
+    	while(atual->prox != NULL){
 		fprintf(arq, "%d", atual->client.idC);
 		fputs("\n",arq);
 		fputs(atual->client.nome,arq);
@@ -121,10 +123,15 @@ void gravaArquivo(Nodo *inicio){
 		fputs("\n", arq);
 		fputs("-1", arq);
         fclose(arq);
+		return 1;
+        
+	}else{
+		return 0;
+	}
 }
 
 int main(){
-		int cont, opc, num, check;
+		int cont, opc, num, check = 0;
 		Cliente cli;
 		cli.idC = 0;		
 		Nodo *inicio = NULL;
@@ -146,6 +153,7 @@ int main(){
 
 		switch(opc){
 			case 1:
+				printf("%d", atual->client.idC);
 				cli.idC++;
 				system("cls");
 				printf("Digite o nome do cliente:\n");
@@ -194,39 +202,50 @@ int main(){
 				break;
 			case 5:
 				system("cls");
-				gravaArquivo(inicio);
+				check = gravaArquivo(inicio);
+				if(check == 1){
+					printf("Gravando arquivo em disco...");
+				}else{
+					printf("Nenhum dado para ser gravado!");
+				}
+				
 				break;
 			case 6:
 				system("cls");
 				Nodo *atual;
     			FILE *arq;
     			arq = fopen("file.txt", "r");
+    			if(arq == NULL){
+    				printf("Nao existe arquivo para recuperar!");
+    	  			break;
+				}
    				atual = inicio;
    				while(cli.idC != -1){
 					fscanf(arq, "%d", &cli.idC);
 					printf("%d\n", cli.idC);
 					if(cli.idC == -1){
-   						break;
-					   }
-					fscanf(arq, " %s", cli.nome);
-					printf("%s\n", cli.nome);
-					fscanf(arq, " %s", cli.cpf);
-					printf("%s\n", cli.cpf);
-					fscanf(arq, " %s", cli.plano);
-					printf("%s\n", cli.plano);
-					inserirDuplamenteEncadeado(&inicio, cli);
+						cli.idC++;
+						break;
+					}else{
+						fscanf(arq, " %s", cli.nome);
+						printf("%s\n", cli.nome);			
+						fscanf(arq, " %s", cli.cpf);
+						printf("%s\n", cli.cpf);
+						fscanf(arq, " %s", cli.plano);
+						printf("%s\n", cli.plano);
+						inserirDuplamenteEncadeado(&inicio, cli);
+					}		
         		}    
         		fclose(arq);
 				break;
 			case 7:
 				system("cls");
+				printf("Saindo do programa de cadastro de clientes!");
 				break;
 			default:
 				printf("Entrada Invalida!!!\n\n");
 		}getch();
 	}while(opc!=7);
-		printf("Saindo do programa de cadastro de clientes!");
+		
 	getch();
 }
-
-
